@@ -1,4 +1,26 @@
 <!DOCTYPE html>
 <html lang=ja>
-    
+    <head>
+        <meta charset="utf-8">
+        <title>todolist</title>
+    </head>
+    <body>
+        <form id="form1" action="#">
+             <input type="text" id="input_message" value="">
+        </form>
+        <div id="output?message"></div>
+        <script type="text/javascript">
+        let im = document.getElementById("input_message")
+        console.log(im)
+            im.addEventListener('keyup',event => {
+                if (!event.isComposing && event.keyCode === 13){
+                    
+                    console.log(im.value);
+                    
+                }
+            })
+
+
+        </script>
+    </body>
 </html>
