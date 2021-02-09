@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang=ja>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>todolist</title>
+    </head>
+    <body>
+        <form id="form1" action="#">
+             <input type="text" id="input_message" value="">
+             <ul id=output_message>
+                 <!-- モックアップ -->
+                 <li id="testli">todo<button id="btn">削除</button></li>
+                 <!-- モックアップ -->
+             </ul>
+        </form>
+        <style>
+
+        </style>
+        <script type="text/javascript">
+            let im = document.getElementById("input_message");
+            im.addEventListener('keyup',event => {
+                if (!event.isComposing && event.keyCode === 13){
+                    let form1 = document.getElementById("form1");
+                    let li = document.createElement("li");
+                    let bu = document.createElement("button");
+                    let ul = document.getElementById("output_message");
+                    let input = document.getElementById("input_message");
+                    let text = ul.appendChild(li);
+                    li.textContent = im.value
+                    im.value = ""
+                    let addremb =  
+                }
+                
+            })
+            // モックアップ
+            const testli = document.getElementById("testli")
+            const btn = document.getElementById("btn")
+            btn.addEventListener('click',()=>{
+                testli.remove()
+            // モックアップ
+            })
+        </script>
+    </body>
+</html>
