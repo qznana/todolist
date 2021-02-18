@@ -10,12 +10,13 @@
         <input type="text" id="input_message" value="">
         <ul id=output_message>
             <!-- モックアップ -->
-            <!-- <li id="testli">todo<button id="btn">削除</button></li> -->
+            <!-- <li id="testli"><input type="checkbox"><span class="line">todo</span><button id="btn">削除</button></li> -->
             <!-- モックアップ -->
         </ul>
 
         <style>
-            /* ここにスタイルを書く */
+            .line{text-decoration: line-through;};
+
         </style>
         <script type="text/javascript">
             let im = document.getElementById("input_message");
@@ -27,17 +28,32 @@
                 if (!isComposing && event.keyCode === 13){
                     let li = document.createElement("li");
                     let bu = document.createElement("button");
+                    let ch = document.createElement("input")
+                    let sp = document.createElement("span")
+                    ch.setAttribute("type","checkbox");
                     let ul = document.getElementById("output_message");
                     let input = document.getElementById("input_message");
-                    let text = ul.appendChild(li);
-                    li.textContent = im.value
+                    ul.appendChild(li);
+                    sp.textContent = im.value
                     im.value = ""
-                    let button = li.appendChild(bu);
-                    button.innerText = "削除";
+                    li.appendChild(ch);
+                    li.appendChild(sp);
+                    li.appendChild(bu);
+                    bu.innerText = "削除";
                     bu.addEventListener('click',()=>{
                         bu.parentElement.remove()
                     })
+                    ch.addEventListener('change',()=>{
+                        if (ch.checked === true){
+                            sp.classList.add("line");
+                        }
+                        else {
+                            sp.classList.remove("line");
+                        }
+                        // console.log(ch.checked); // 選択されたらtrue、選択解除はfalse
+                    });
                 }
+            
             });
             im.addEventListener('compositionstart', function(event) {
                 isComposing = true;
