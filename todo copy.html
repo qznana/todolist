@@ -8,6 +8,7 @@
     <body>
 
         <input type="text" id="input_message" value="">
+        <button id=all>全て</button><button id=complete>完了</button><button id=incomplete>未完了</button>
         <ul id=output_message>
             <!-- モックアップ -->
             <!-- <li id="testli"><input type="checkbox"><span class="line">todo</span><button id="btn">削除</button></li> -->
@@ -15,17 +16,69 @@
         </ul>
 
         <style>
-            .line{text-decoration: line-through;};
-
+            .line{text-decoration: line-through;}
+            .is-hidden{
+                display: none;
+            }
         </style>
         <script type="text/javascript">
             let im = document.getElementById("input_message");
+            let currentDisplayMode = "all"
+            const displayAllTask = () =>{
+                let allTaskElement = document.querySelectorAll("li")
+                allTaskElement.forEach(element => {
+                    element.classList.remove("is-hidden")
+                });
+            };
+            const hideAllTask = () =>{
+                let allTaskElement = document.querySelectorAll("li")
+                allTaskElement.forEach(element => {
+                    element.classList.add("is-hidden")
+                });
+            };
+            const displayCompleteTask = () =>{
+                let allTaskElement = document.querySelectorAll("li")
+                allTaskElement.forEach(element => {
+                    if (0 < element.querySelectorAll(".line").length){
+                        element.classList.remove("is-hidden")
+                    }
+                    
+                });
+            };
+            const displayIncompleteTask = () =>{
+                let allTaskElement = document.querySelectorAll("li")
+                allTaskElement.forEach(element => {
+                    if (0 === element.querySelectorAll(".line").length){
+                        element.classList.remove("is-hidden")
+                    }
+                    
+                });
+            };
+            const allButton = document.getElementById("all")
+            allButton.addEventListener('click',()=>{
+                hideAllTask()
+                currentDisplayMode = "all"
+                displayAllTask()
+            })
+            const completeButton = document.getElementById("complete")
+            completeButton.addEventListener('click',()=>{
+                hideAllTask()
+                currentDisplayMode = "complete"
+                displayCompleteTask()
+            })
+            const incompleteButton = document.getElementById("incomplete")
+            incompleteButton.addEventListener('click',()=>{
+                hideAllTask()
+                currentDisplayMode = "incomplete"
+                displayIncompleteTask()
+            })
             let isComposing = false;
             im.addEventListener('keydown',event => {
                 if (im.value == ""){
                     return
                 }
                 if (!isComposing && event.keyCode === 13){
+                    
                     let li = document.createElement("li");
                     let bu = document.createElement("button");
                     let ch = document.createElement("input")
@@ -43,6 +96,7 @@
                     bu.addEventListener('click',()=>{
                         bu.parentElement.remove()
                     })
+                    li.classList.add("is-hidden")
                     ch.addEventListener('change',()=>{
                         if (ch.checked === true){
                             sp.classList.add("line");
@@ -52,6 +106,16 @@
                         }
                         // console.log(ch.checked); // 選択されたらtrue、選択解除はfalse
                     });
+                    hideAllTask()
+                    if (currentDisplayMode === "all"){
+                        displayAllTask()
+                    }
+                    if (currentDisplayMode === "complete"){
+                        displayCompleteTask()
+                    }
+                    if (currentDisplayMode === "incomplete"){
+                        displayIncompleteTask()
+                    }
                 }
             
             });
